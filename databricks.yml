@@ -1,0 +1,39 @@
+# yaml-language-server: $schema=bundle_config_schema.json
+bundle:
+  name: people-dab
+
+resources:
+  jobs:
+    people-job:
+      name: people
+      tasks:
+        - task_key: people-task
+          #existing_cluster_id: 1102-184151-gr99lits
+          spark_python_task:
+            python_file: ./cicd-notebook.py
+
+targets:
+  # dev:
+  #   default: true
+  dev:
+    workspace:
+      host: https://e2-demo-west.cloud.databricks.com/
+    resources:
+      jobs:
+        people-job:
+          name: people
+          tasks:
+            - task_key: people-task
+              existing_cluster_id: 1102-184151-gr99lits
+
+  # prod:
+  #   workspace:
+  #     host: https://e2-demo-west.cloud.databricks.com/
+  #   resources:
+  #     jobs:
+  #       people-job:
+  #         name: people
+  #         tasks:
+  #           - task_key: people-task
+  #             existing_cluster_id: 1102-184151-gr99lits
+
