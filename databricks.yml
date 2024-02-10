@@ -11,10 +11,6 @@ resources:
           #existing_cluster_id: 1102-184151-gr99lits
           notebook_task:
             notebook_path: ./cicd-notebook.py
-        - task_key: test-people-task
-          notebook_task:
-            notebook_path: ./test_people_pipeline.py
-
 
 targets:
   # dev:

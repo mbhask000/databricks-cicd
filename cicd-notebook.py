@@ -9,15 +9,25 @@ from pyspark.sql import functions as F
 
 # COMMAND ----------
 
+# MAGIC %md
+# MAGIC
+# MAGIC ### Class people_demo
+
+# COMMAND ----------
+
 
 class people_demo:
     def __init__(self, url):
         self.data_url = url
 
     def load_bronze(self):
+        """
+            input:none
+            output: bronze df
+        """
         bronze_df = spark.read.format("delta").load(self.data_url)
         return bronze_df
-
+    
     def generate_silver(self, bronze_df):
         silver_df = bronze_df.dropDuplicates()
         for col in silver_df.columns:
@@ -39,6 +49,12 @@ class people_demo:
 
 # COMMAND ----------
 
+# MAGIC %md
+# MAGIC
+# MAGIC ### Main Function
+
+# COMMAND ----------
+
 if __name__ == "__main__":
     obj_people = people_demo("dbfs:/databricks-datasets/learning-spark-v2/people/people-10m.delta")
 
@@ -46,9 +62,9 @@ if __name__ == "__main__":
     silver_df = obj_people.generate_silver(bronze_df)
     gold_df = obj_people.process_gold(silver_df)
 
-    gold_df.write.mode('overwrite').saveAsTable("hive_metastore.default.gold_people")
+    gold_df.write.mode('overwrite').saveAsTable("gold_people1")
 
-    # bronze_df.show(4,truncate=False)
+    bronze_df.show(4,truncate=False)
     # bronze_df.printSchema()
     # silver_df.show(4,truncate=False)
     # gold_df.show(4,truncate=False)
@@ -57,9 +73,15 @@ if __name__ == "__main__":
 
 # COMMAND ----------
 
-# MAGIC %sql
-# MAGIC
-# MAGIC select * from gold_people
+# %sql
+
+# select * from gold_people1
+
+# COMMAND ----------
+
+# %sql
+
+# describe extended gold_people
 
 # COMMAND ----------
 

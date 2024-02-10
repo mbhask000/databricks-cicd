@@ -1,5 +1,5 @@
 # Databricks notebook source
-# MAGIC %run /Workspace/Repos/ganesh.chandra@databricks.com/databricks-cicd/02-cicd-notebook
+# MAGIC %run /Workspace/Repos/ganesh.chandra@databricks.com/databricks-cicd/cicd-notebook
 
 # COMMAND ----------
 
