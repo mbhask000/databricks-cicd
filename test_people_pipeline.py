@@ -1,26 +1,12 @@
 # Databricks notebook source
-from cicd-notebook import people_demo
+def test_gold_output():
+    assert spark.table("hive_metastore.default.gold_people") is True, "Table Not Found"
 
 # COMMAND ----------
 
-def test_bronze():
-    url = "dbfs:/databricks-datasets/learning-spark-v2/people/people-10m.delta"
-    obj_people = people_demo(url)
-    
-    bronze_df = obj_people.load_bronze()
-    assert bronze_df.count() > 0, "Not greater than zero"
-
-# COMMAND ----------
-
-def test_silver():
-    url = "dbfs:/databricks-datasets/learning-spark-v2/people/people-10m.delta"
-    obj_people = people_demo(url)
-    
-    bronze_df = obj_people.load_bronze()
-    silver_df = obj_people.generate_silver(bronze_df)
-
-    cols_to_check = ['id','firstname','middlename','lastname','gender','birthdate','ssn','salary']
-    assert silver_df.columns == cols_to_check
+def test_columns():
+    cols_to_check = ['gender','total_salary','total_count']
+    assert spark.table("hive_metastore.default.gold_people").columns == cols_to_check
 
     
 
@@ -28,24 +14,20 @@ def test_silver():
 
 from pyspark.sql.functions import col
 
-def test_nulls_in_silver():
-    url = "dbfs:/databricks-datasets/learning-spark-v2/people/people-10m.delta"
-    obj_people = people_demo(url)
-    
-    bronze_df = obj_people.load_bronze()
-    silver_df = obj_people.generate_silver(bronze_df)
-    for column in ["firstname", "lastname", "gender","birthdate"]:
-        null_count = silver_df.filter(col(column).isNull()).count()
+def test_nulls_in_gold():
+    df = spark.table("hive_metastore.default.gold_people")
+    for column in ['gender','total_salary','total_count']:
+        null_count = df.filter(col(column).isNull()).count()
         assert null_count == 0, f"Column {column} contains {null_count} null values"
 
 # COMMAND ----------
 
-#test_bronze()
+test_gold_output()
 
 # COMMAND ----------
 
-#test_silver()
+test_columns()
 
 # COMMAND ----------
 
-#test_nulls_in_silver()
+test_nulls_in_gold()

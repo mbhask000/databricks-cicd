@@ -46,12 +46,20 @@ if __name__ == "__main__":
     silver_df = obj_people.generate_silver(bronze_df)
     gold_df = obj_people.process_gold(silver_df)
 
+    gold_df.write.mode('overwrite').saveAsTable("hive_metastore.default.gold_people")
+
     # bronze_df.show(4,truncate=False)
     # bronze_df.printSchema()
     # silver_df.show(4,truncate=False)
     # gold_df.show(4,truncate=False)
 
     ## Don't forget to comment the show functions for Unit Testing
+
+# COMMAND ----------
+
+# MAGIC %sql
+# MAGIC
+# MAGIC select * from gold_people
 
 # COMMAND ----------
 
