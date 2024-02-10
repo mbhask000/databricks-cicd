@@ -9,8 +9,8 @@ resources:
       tasks:
         - task_key: people-task
           #existing_cluster_id: 1102-184151-gr99lits
-          spark_python_task:
-            python_file: ./cicd-notebook.py
+          notebook_task:
+            notebook_path: ./cicd-notebook.py
 
 targets:
   # dev:
