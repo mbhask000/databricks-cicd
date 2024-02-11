@@ -62,7 +62,7 @@ if __name__ == "__main__":
     silver_df = obj_people.generate_silver(bronze_df)
     gold_df = obj_people.process_gold(silver_df)
 
-    gold_df.write.mode('overwrite').saveAsTable("gold_people1")
+    gold_df.write.mode('overwrite').saveAsTable("gold_people")
 
     bronze_df.show(4,truncate=False)
     # bronze_df.printSchema()
@@ -70,18 +70,6 @@ if __name__ == "__main__":
     # gold_df.show(4,truncate=False)
 
     ## Don't forget to comment the show functions for Unit Testing
-
-# COMMAND ----------
-
-# %sql
-
-# select * from gold_people1
-
-# COMMAND ----------
-
-# %sql
-
-# describe extended gold_people
 
 # COMMAND ----------
 
