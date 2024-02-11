@@ -6,13 +6,15 @@ resources:
   jobs:
     people-job:
       name: people
+
       tasks:
         - task_key: people-task
           notebook_task:
             notebook_path: ./cicd-notebook.py
+
         - task_key: test-people-task
           depends_on:
-            - task_key:people-task
+            - task_key: people-task
           notebook_task:
             notebook_path: ./test_people_pipeline.py
 
