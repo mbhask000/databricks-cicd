@@ -43,7 +43,7 @@ jobs:
 
     # Run the "Run pipeline update" job first.
     needs:
-      - "Run pipeline update"
+      - "pipeline_update"
 
     steps:
       # Check out this repo, so that this workflow can access it.
