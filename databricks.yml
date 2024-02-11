@@ -12,7 +12,7 @@ resources:
             notebook_path: ./cicd-notebook.py
         - task_key: test-people-task
           depends_on:
-            -task_key:people-task
+            - task_key:people-task
           notebook_task:
             notebook_path: ./test_people_pipeline.py
 
@@ -32,6 +32,7 @@ targets:
               existing_cluster_id: 1102-184151-gr99lits
             - task_key: people-task
               existing_cluster_id: 1102-184151-gr99lits
+
 
   # prod:
   #   workspace:
