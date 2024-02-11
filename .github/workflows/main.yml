@@ -31,6 +31,12 @@ jobs:
 
       # Run the Databricks workflow named "my-job" as defined in the
       # bundle that was just deployed.
+      - run: databricks bundle deploy
+        working-directory: .
+        env:
+          DATABRICKS_TOKEN: ${{ secrets.E2_DEMO_WEST_SP_TOKEN }}
+          DATABRICKS_BUNDLE_ENV: dev
+          
       - run: databricks bundle run people-job --refresh-all
         working-directory: .
         env:
